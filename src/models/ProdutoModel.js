@@ -29,7 +29,7 @@ export const criandoProduto = async (nomeProduto) =>{
 
 }
 //mostrando produtos da Tabela produto
-const mostrarProdutos = async () =>{
+export const mostrarProdutos = async () =>{
     console.log('ProdutoModel :: mostrarProdutos');
     
     //SQL para realizar consulta
@@ -38,14 +38,15 @@ const mostrarProdutos = async () =>{
     try{
         //pegando primeiro array de resposta
         const [resposta] = await conexao.query(sql);
-        console.log(resposta)
+        //console.log(resposta)
+        return [200,resposta];
     } catch (error){
         console.error(error);
     }
 }
 
 
-const atualizandoProduto = async(id_produto,nomeProduto)=>{
+export const atualizandoProduto = async(id_produto,nomeProduto)=>{
     console.log('ProdutoModel :: atualizandoProduto');
 
     //SQL Update produto
@@ -56,16 +57,17 @@ const atualizandoProduto = async(id_produto,nomeProduto)=>{
 
     try {
         const [resposta] = await conexao.query(sql, params);
-        console.log(resposta);
+        //console.log(resposta);
+        return [200, { mensagem: "Produto atualizado com sucesso" }];
     } catch (error) {
         console.error(error);
     }
 }
 
-const deletandoProduto = async(id_produto) =>{
+export const deletandoProduto = async(id_produto) =>{
     console.log('produtoModel :: deletandoProduto');
-
-    //SQL UpdateProduto 
+    
+    //SQL Delete produto
     const sql = `DELETE FROM produto 
                     WHERE id_produto =?`;
 
@@ -73,7 +75,7 @@ const deletandoProduto = async(id_produto) =>{
 
     try {
         const [resposta] = await conexao.query (sql,params);
-        console.log (resposta);
+        //console.log (resposta);
         if (resposta.affectedRows < 1){
             return [404, {mensagem: 'Produto não encontrado'}]
         }else{

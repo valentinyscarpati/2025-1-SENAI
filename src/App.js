@@ -1,5 +1,5 @@
 import express from 'express';
-import { createProduto } from './controllers/ProdutoController.js';
+import { createProduto, deleteProduto, readProduto, updateProduto } from './controllers/ProdutoController.js';
 
 const app = express();
 const port = 3000;
@@ -11,6 +11,9 @@ app.get('/', (req,res)=>{
 
 //CRUD produto
 app.post('/produto', createProduto);
+app.get('/produto',readProduto);
+app.put('/produto/:id_produto', updateProduto);
+app.delete('/produto/:id_produto', deleteProduto);
 app.listen(port,()=>{
     console.log(`API Rodando na Porta ${port}`)
 });
